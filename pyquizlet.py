@@ -59,6 +59,8 @@ class Quizlet():
         base_url = self.base_url + apistring
         params['client_id'] = self.qid
         connection = httplib.HTTPSConnection('quizlet.com')
+        if self.authorized and self.access_token:
+            connection.putheader('Authorization','Bearer ' + self.access_token['access_token'])
         request_string = base_url + '?' + urllib.urlencode(params)
 
         connection.request('GET', request_string)
